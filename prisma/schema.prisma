@@ -1,0 +1,77 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String   @id @default(uuid())
+  email         String   @unique
+  name          String   @default("")
+  password_hash String
+  profile_color String   @default("terracotta")
+  created_at    DateTime @default(now()) @db.DateTime(0)
+
+  journal      JournalEntry[]
+  kuis_results KuisResult[]
+  cekdiri      CekDiriEntry[]
+
+  @@map("users")
+}
+
+model LoginAttempt {
+  id           String    @id @default(uuid())
+  identifier   String    @unique
+  attempts     Int       @default(0)
+  last_attempt DateTime? @db.DateTime(0)
+  locked_until DateTime? @db.DateTime(0)
+
+  @@map("login_attempts")
+}
+
+model JournalEntry {
+  id         String    @id @default(uuid())
+  user_id    String
+  title      String    @default("Tanpa Judul")
+  body       String    @db.Text
+  mood       String    @default("tenang")
+  unlock_at  DateTime? @db.DateTime(0)
+  created_at DateTime  @default(now()) @db.DateTime(0)
+
+  user User @relation(fields: [user_id], references: [id])
+
+  @@index([user_id, created_at], name: "ix_journal_user_created")
+  @@map("journal")
+}
+
+model KuisResult {
+  id         String   @id @default(uuid())
+  user_id    String
+  dominant   String
+  counts     Json     @default("{}")
+  created_at DateTime @default(now()) @db.DateTime(0)
+
+  user User @relation(fields: [user_id], references: [id])
+
+  @@index([user_id, created_at], name: "ix_kuis_user_created")
+  @@map("kuis_results")
+}
+
+model CekDiriEntry {
+  id         String   @id @default(uuid())
+  user_id    String
+  feeling    String
+  note       String?  @db.Text
+  created_at DateTime @default(now()) @db.DateTime(0)
+
+  user User @relation(fields: [user_id], references: [id])
+
+  @@index([user_id, created_at], name: "ix_cekdiri_user_created")
+  @@map("cekdiri")
+}

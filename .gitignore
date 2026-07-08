@@ -4,3 +4,14 @@ __pycache__/
 venv/
 .env
 *.pyc
+
+# Node
+node_modules/
+dist/
+
+# Prisma
+prisma/migrations/
+
+# Logs
+*.log
+npm-debug.log*
