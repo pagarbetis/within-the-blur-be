@@ -10,7 +10,7 @@ node_modules/
 dist/
 
 # Prisma
-prisma/migrations/
+# prisma/migrations/
 
 # Logs
 *.log
