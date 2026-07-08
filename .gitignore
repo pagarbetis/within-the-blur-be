@@ -1,2 +1,6 @@
-.env
 schema.sql
+__pycache__/
+.pytest_cache/
+venv/
+.env
+*.pyc

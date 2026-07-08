@@ -1,9 +1,0 @@
-[
-  "tests/test_enhancements.py::test_journal_locked_hides_body",
-  "tests/test_enhancements.py::test_journal_unlockAt_beyond_3_years_rejected",
-  "tests/test_enhancements.py::test_journal_unlockAt_invalid_format",
-  "tests/test_enhancements.py::test_journal_unlockAt_past_rejected",
-  "tests/test_enhancements.py::test_journal_unlocked_regular",
-  "tests/test_enhancements.py::test_stats_shape",
-  "tests/test_enhancements.py::test_stats_today_reflects_cekdiri"
-]
